@@ -10,4 +10,7 @@ class AppStrings {
   static const errorOccured = "Error occured";
   static const geminiPolicyError =
       "This isn't allowed because of Gemini's policy.";
+
+  static const howToUseTheApp =
+      "- Tell us the aspect you want to generate about. \n- Input the name you want it personalised to. \n- Send Gemini on an errand of getting the text.\n- Share from the generated text to other apps.";
 }

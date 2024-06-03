@@ -22,21 +22,6 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
   final personalisedController = TextEditingController();
   final aspectController = TextEditingController();
 
-  void showErrorSnackbar(String message) {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-    scaffoldMessenger.showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  @override
-  void dispose() {
-    personalisedController.dispose();
-    aspectController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,33 +58,7 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
               Visibility(
                 visible: !isRequesting,
                 child: ElevatedButton(
-                  onPressed: () async {
-                    if (aspectKey.currentState!.validate()) {
-                      FocusScope.of(context).unfocus();
-                      setState(() {
-                        isRequesting = true;
-                      });
-                      final aspectText = aspectController.text;
-                      final personalisedText = personalisedController.text;
-
-                      final response = await ContentService().generateContent(
-                        aspect: aspectText,
-                        personalisedFor: personalisedText,
-                      );
-
-                      if (!response.isSuccessFul) {
-                        errorMessage =
-                            response.errorMessage ?? AppStrings.errorOccured;
-                        contentList = [];
-                        showErrorSnackbar(errorMessage);
-                      } else {
-                        contentList = response.data ?? [];
-                      }
-                      setState(() {
-                        isRequesting = false;
-                      });
-                    }
-                  },
+                  onPressed: generateContent,
                   child: const Text("Generate"),
                 ),
               ),
@@ -128,5 +87,47 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
         ),
       ),
     );
+  }
+
+  void showErrorSnackbar(String message) {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    scaffoldMessenger.showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  void generateContent() async {
+    if (aspectKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      setState(() {
+        isRequesting = true;
+      });
+      final aspectText = aspectController.text;
+      final personalisedText = personalisedController.text;
+
+      final response = await ContentService().generateContent(
+        aspect: aspectText,
+        personalisedFor: personalisedText,
+      );
+
+      if (!response.isSuccessFul) {
+        errorMessage = response.errorMessage ?? AppStrings.errorOccured;
+        contentList = [];
+        showErrorSnackbar(errorMessage);
+      } else {
+        contentList = response.data ?? [];
+      }
+      setState(() {
+        isRequesting = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    personalisedController.dispose();
+    aspectController.dispose();
+    super.dispose();
   }
 }
