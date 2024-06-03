@@ -1,18 +1,16 @@
-# gen_and_share
+# Gen and Share
 
-A new Flutter project.
+A submission to FlutterByte BuildWithAI Competition.
 
-## Getting Started
+## How it works
+- User provides an "aspect" to be generated about.
+- User can also provide a name that the generated text would be persoolised to.
 
-This project is a starting point for a Flutter application.
+## Packages Used
 
-A few resources to get you started if this is your first Flutter project:
+This Flutter project makes use of:
+- [google_generative_ai](https://pub.dev/packages/google_generative_ai) to serve as the brain of the project
+- [flutter_spinkit] (https://pub.dev/packages/flutter_spinkit) to handle loading state.
+- [share_plus] (https://pub.dev/packages/share_plus) to share geneated text to other applications
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-Card Animation
