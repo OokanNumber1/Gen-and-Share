@@ -31,8 +31,9 @@ class ContentService {
           errorMessage: AppStrings.generalErrorMessage,
         );
       }
-      final list = response.text!.split("\n").toList();
-      return GeminiResponseModel(isSuccessFul: true, data: list);
+      final responseList = response.text!.split("\n").toList();
+      responseList.removeWhere((element)=>element.isEmpty);
+      return GeminiResponseModel(isSuccessFul: true, data: responseList);
     } on SocketException {
       return const GeminiResponseModel(
         isSuccessFul: false,
