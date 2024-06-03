@@ -55,7 +55,7 @@ class _GenerateContentPageState extends State<GenerateContentPage> {
                   decoration: const InputDecoration(hintText: "Aspect"),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "This field can not be empty";
+                      return "Aspect field can not be empty";
                     }
                     return null;
                   },
